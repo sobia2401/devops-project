@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -12,14 +11,14 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t scholarship-eligibility-finder .'
+                bat 'docker --context desktop-linux build -t scholarship-eligibility-finder .'
             }
         }
 
         stage('Deploy Application') {
             steps {
-                bat 'docker compose down --remove-orphans'
-                bat 'docker compose up -d --build'
+                bat 'docker --context desktop-linux compose down --remove-orphans'
+                bat 'docker --context desktop-linux compose up -d --build'
             }
         }
     }
