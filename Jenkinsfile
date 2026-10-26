@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -11,15 +12,16 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker --context desktop-linux build -t scholarship-eligibility-finder .'
+                bat 'set DOCKER_HOST=npipe:////./pipe/dockerDesktopLinuxEngine && docker build -t scholarship-eligibility-finder .'
             }
         }
 
         stage('Deploy Application') {
             steps {
-                bat 'docker --context desktop-linux compose down --remove-orphans'
-                bat 'docker --context desktop-linux compose up -d --build'
+                bat 'set DOCKER_HOST=npipe:////./pipe/dockerDesktopLinuxEngine && docker compose down --remove-orphans'
+                bat 'set DOCKER_HOST=npipe:////./pipe/dockerDesktopLinuxEngine && docker compose up -d --build'
             }
         }
     }
 }
+
