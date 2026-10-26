@@ -18,10 +18,8 @@ pipeline {
 
         stage('Deploy Application') {
             steps {
-                bat 'set DOCKER_HOST=npipe:////./pipe/dockerDesktopLinuxEngine && docker compose down --remove-orphans'
-                bat 'set DOCKER_HOST=npipe:////./pipe/dockerDesktopLinuxEngine && docker compose up -d --build'
+                bat 'set DOCKER_HOST=npipe:////./pipe/dockerDesktopLinuxEngine && docker run -d --name scholarship-app -p 5000:5000 --restart unless-stopped scholarship-eligibility-finder'
             }
         }
     }
 }
-
